@@ -24,7 +24,7 @@ func getDotFilePath() string {
 }
 
 func openFile(filePath string) *os.File {
-	f, err := os.OpenFile(filePath string, os.O_Append|os.O_WRONLY, 0755)
+	f, err := os.OpenFile(filePath, os.O_APPEND|os.O_RDWR, 0755)
 
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -33,9 +33,7 @@ func openFile(filePath string) *os.File {
 			if err != nil {
 				panic(err)
 			}
-		}
-
-		else {
+		} else {
 			panic(err)
 		}
 	}
@@ -94,7 +92,11 @@ func addNewSliceElementsToFile(filePath string, newRepos []string) {
 	dumpStringSlicesToFile(repos, filePath)
 }
 
-func scan(path string) {
+func recursiveScanFolder(folder string) []string {
+	return scanGitFolders(make([]string, 0), folder)
+}
+
+func scan(folder string) {
 	print("scan")
 	fmt.Printf("Found folders: \n \n")
 	repositories := recursiveScanFolder(folder)
@@ -104,18 +106,21 @@ func scan(path string) {
 }
 
 func scanGitFolders(folders []string, folder string) []string {
-	folder = string.TrimSuffix(folder, "/")
+	folder = strings.TrimSuffix(folder, "/")
+	// fmt.Println(folders)
 
 	f, err := os.Open(folder)
 	
 	if err != nil {
+		fmt.Printf("this error")
 		log.Fatal(err)
 	}
 
 	files, err := f.Readdir(-1)
-	f.close()
+	f.Close()
 
 	if err != nil {
+		fmt.Printf("second error")
 		log.Fatal(err)
 	}
 
@@ -123,7 +128,7 @@ func scanGitFolders(folders []string, folder string) []string {
 
 	for _, file := range files {
 		if file.IsDir() {
-			path = path + "/" + file.Name()
+			path = folder + "/" + file.Name()
 			if file.Name() == ".git" {
 				path = strings.TrimSuffix(path, "/.git")
 				fmt.Println(path)
@@ -141,8 +146,4 @@ func scanGitFolders(folders []string, folder string) []string {
 	}
 
 	return folders 
-}
-
-func recursiveScanFolder(folder string) []string {
-	return scanGitFolders(make([]string, 0) folder)
 }
