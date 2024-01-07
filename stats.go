@@ -149,18 +149,18 @@ func printCell(val int, today bool) {
 	}
 
 	if val == 0 {
-		fmt.Printf(escape + "  -" + "\033[0m")
+		fmt.Printf(escape + "  - " + "\033[0m")
 		return
 	}
 
-	str := "  %d"
+	str := "  %d "
 
 	switch {
 		case val >= 10:
-			str = " %d"
+			str = " %d "
 
 		case val >= 100:
-			str = "%d"
+			str = "%d "
 	}
 
 	fmt.Printf(escape+str+"\033[0m", val)
@@ -249,7 +249,7 @@ func printMonths() {
 			fmt.Printf("%s ", week.Month().String()[:3])
 			month = week.Month()
 		} else {
-			fmt.Printf("     ")
+			fmt.Printf("    ")
 		}
 
 		week = week.Add(7 * time.Hour * 24)
@@ -262,17 +262,17 @@ func printMonths() {
 }
 
 func printDayCol(day int) {
-	out := "    "
+	out := "     "
 
 	switch day {
 		case 1: 
-			out = " Mon"
+			out = " Mon "
 
 		case 3: 
-			out = " Wed"
+			out = " Wed "
 
 		case 5: 
-			out = " Fri"
+			out = " Fri "
 	}
 
 	fmt.Printf(out)
