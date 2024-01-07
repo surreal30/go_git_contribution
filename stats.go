@@ -224,7 +224,8 @@ func printCells(cols map[int]column) {
 					continue
 				} else {
 					if len(col) > j {
-						printCell(col[j], true)
+						printCell(col[j], false)
+						continue
 					}
 				}
 
