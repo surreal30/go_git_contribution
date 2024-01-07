@@ -131,7 +131,7 @@ func calcOffset() int {
 }
 
 func printCell(val int, today bool) {
-	escape := "\033[0;37;30m"
+	escape := "\033[0;37;46m"
 
 	switch {
 		case val > 0 && val < 5:
