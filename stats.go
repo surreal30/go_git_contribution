@@ -1,11 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
-	"time"
 	"sort"
-	"fmt"
+	"time"
 )
 
 const outOfRange = 9999999
