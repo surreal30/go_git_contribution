@@ -1,14 +1,14 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"os"
 	"io"
 	"io/ioutil"
 	"log"
+	"os"
 	"os/user"
 	"strings"
-	"bufio"
 )
 
 func getDotFilePath() string {
